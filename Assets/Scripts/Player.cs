@@ -13,10 +13,12 @@ public class Player : MonoBehaviour
     Vector2 movement;
 
     Rigidbody2D rb;
+    Animator anim;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        anim = GetComponentInChildren<Animator>();
     }
 
     void Update()
@@ -29,6 +31,14 @@ public class Player : MonoBehaviour
         if(inputH != 0)
         {
             transform.localScale = new Vector3(inputH , 1f , 1f);
+            anim.Play("Base Layer.Run");
+        }
+        else
+        {
+            if(isGrounded)
+            {
+                anim.Play("Base Layer.Stand");
+            }
         }
 
         //jump
@@ -36,7 +46,8 @@ public class Player : MonoBehaviour
         {
             Vector2 jump  =new Vector2(rb.velocity.x , jumpForce);
             rb.velocity = jump;
-        }
+            anim.Play("Base Layer.Jump");
+        }   
     }
 
     void FixedUpdate()

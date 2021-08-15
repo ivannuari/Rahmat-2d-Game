@@ -9,12 +9,24 @@ public class MainMenu : MonoBehaviour
 {
     public Button[] buttons;
 
+    public GameObject[] panels;
+
     void Start()
     {
         foreach (Button i in buttons)
         {
             i.interactable = false;
         }
+        SetPanelActive(0);
+    }
+
+    void SetPanelActive(int n)
+    {
+        foreach (GameObject g in panels)
+        {
+            g.SetActive(false);
+        }
+        panels[n].SetActive(true);
     }
 
     public void InputNama(string nama)
@@ -33,19 +45,31 @@ public class MainMenu : MonoBehaviour
         }
         else if(n == "tujuan")
         {
-
+            SetPanelActive(1);
         }
         else if(n == "materi")
         {
-            
+            //SetPanelActive(0);
         }
-        else if(n == "credits")
+        else if(n == "tentang")
         {
-            
+            SetPanelActive(2);
         }
-        else if(n == "quit")
+        else if(n == "keluar")
+        {
+            SetPanelActive(3);
+        }
+        else if(n == "ya")
         {
             Application.Quit();
+        }
+        else if(n == "tidak")
+        {
+            SetPanelActive(0);
+        }
+        else if(n == "kembali")
+        {
+            SetPanelActive(0);
         }
     }
 }
