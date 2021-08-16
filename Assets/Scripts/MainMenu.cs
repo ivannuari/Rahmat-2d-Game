@@ -31,6 +31,7 @@ public class MainMenu : MonoBehaviour
 
     public void InputNama(string nama)
     {
+        GameManager.GM.data.InputNama(nama);
         foreach (Button i in buttons)
         {
             i.interactable = true;

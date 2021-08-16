@@ -10,11 +10,11 @@ public class LevelManager : MonoBehaviour
 
     public List<Quis> soal = new List<Quis>();
 
-    public GameObject panelQuis;
+    public GameObject panelQuis , panelResult , panelHp;
 
     //panel kuis
-    public TMP_Text pertanyaan , opsiA , opsiB , opsiC , opsiD;
-    int rand;
+    public TMP_Text coinText , pertanyaan , opsiA , opsiB , opsiC , opsiD;
+    int rand , currHp;
 
     void Awake()
     {
@@ -31,6 +31,27 @@ public class LevelManager : MonoBehaviour
     void Start()
     {
         panelQuis.SetActive(false);
+        panelResult.SetActive(false);
+        
+        currHp = GameManager.GM.data.maxHp;
+        UpdateHp();
+    }
+
+    void UpdateHp()
+    {
+        foreach (Transform t in panelHp.transform)
+        {
+            t.gameObject.SetActive(false);
+        }
+        for (int i = 0; i < currHp; i++)
+        {
+            panelHp.transform.GetChild(i).gameObject.SetActive(true);
+        }
+    }
+
+    void Update()
+    {
+        coinText.text = GameManager.GM.data.coin.ToString();
     }
 
     public void MunculPertanyaan()
@@ -51,10 +72,13 @@ public class LevelManager : MonoBehaviour
         if(i == soal[rand].jawaban)
         {
             JawabanBenar(true);
+            GameManager.GM.data.coin += 20;
         }
         else
         {
             JawabanBenar(false);
+            currHp -= 1;
+            UpdateHp();
         }
 
         soal.Remove(soal[rand]);
@@ -62,7 +86,23 @@ public class LevelManager : MonoBehaviour
 
     void JawabanBenar(bool ya)
     {
+        panelResult.SetActive(true);
+        TMP_Text res = panelResult.GetComponentInChildren<TMP_Text>();
+        if(ya)
+        {
+            res.text = "BENAR";
+        }
+        else
+        {
+            res.text = "SALAH";
+        }
+        StartCoroutine(SelesaiPertanyaan());
+    }
+
+    IEnumerator SelesaiPertanyaan()
+    {
+        yield return new WaitForSeconds(1.5f);
         panelQuis.SetActive(false);
-        Time.timeScale = 1f;
+        panelResult.SetActive(false);
     }
 }

@@ -6,8 +6,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager GM;
 
-    public string namaPemain;
-    public int levelUnlocked = 1;
+    public CharacterData data;
 
     void Awake()
     {
