@@ -9,7 +9,7 @@ public class CharacterData
     public int coin;
     public int maxHp = 3;
 
-    public int levelUnlocked;
+    public int levelUnlocked = 1;
 
     public void InputNama(string n)
     {

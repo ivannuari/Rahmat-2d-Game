@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 public class LevelManager : MonoBehaviour
@@ -10,7 +11,7 @@ public class LevelManager : MonoBehaviour
 
     public List<Quis> soal = new List<Quis>();
 
-    public GameObject panelQuis , panelResult , panelHp;
+    public GameObject panelQuis , panelResult , panelHp , panelGameOver;
 
     //panel kuis
     public TMP_Text coinText , pertanyaan , opsiA , opsiB , opsiC , opsiD;
@@ -30,8 +31,11 @@ public class LevelManager : MonoBehaviour
 
     void Start()
     {
+        Time.timeScale = 1f;
+
         panelQuis.SetActive(false);
         panelResult.SetActive(false);
+        panelGameOver.SetActive(false);
         
         currHp = GameManager.GM.data.maxHp;
         UpdateHp();
@@ -79,6 +83,10 @@ public class LevelManager : MonoBehaviour
             JawabanBenar(false);
             currHp -= 1;
             UpdateHp();
+            if(currHp < 1)
+            {
+                GameOver();
+            }
         }
 
         soal.Remove(soal[rand]);
@@ -104,5 +112,28 @@ public class LevelManager : MonoBehaviour
         yield return new WaitForSeconds(1.5f);
         panelQuis.SetActive(false);
         panelResult.SetActive(false);
+    }
+
+    public void GameOver()
+    {
+        Time.timeScale = 0f;
+        panelGameOver.SetActive(true);
+    }
+
+    public void FinishLevel()
+    {
+        //
+    }
+
+    public void MenuButton(string n)
+    {
+        if(n == "replay")
+        {
+            SceneManager.LoadScene("level1");
+        }
+        else if(n == "home")
+        {
+            SceneManager.LoadScene(1);
+        }
     }
 }

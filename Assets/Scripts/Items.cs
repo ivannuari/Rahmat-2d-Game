@@ -5,6 +5,8 @@ using UnityEngine;
 public class Items : MonoBehaviour
 {
     Animator anim;
+    public bool isDeadzone = false;
+    public bool isFinish = false;
 
     void Start()
     {
@@ -15,7 +17,18 @@ public class Items : MonoBehaviour
     {
         if(cl.CompareTag("Player"))
         {
-            PickUp();
+            if(isDeadzone)
+            {
+                LevelManager.LM.GameOver();
+            }
+            else if(isFinish)
+            {
+                LevelManager.LM.FinishLevel();
+            }
+            else
+            {
+                PickUp();
+            } 
         }
     }
 
