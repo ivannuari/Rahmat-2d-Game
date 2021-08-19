@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    public Joystick js;
+
+    public bool isAdroid = false;
+
     public float speed;
     public float jumpForce;
 
@@ -23,7 +27,19 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        float inputH = Input.GetAxisRaw("Horizontal");
+        float inputH = 0f;
+        if(isAdroid)
+        {
+            if(js.Horizontal < -0.9f || js.Horizontal > 0.9f)
+            {
+                inputH = js.Horizontal;
+            }
+        
+        }
+        else
+        {
+            inputH = Input.GetAxisRaw("Horizontal");
+        }
 
         movement = new Vector2(inputH * speed , rb.velocity.y);
 
@@ -42,12 +58,20 @@ public class Player : MonoBehaviour
         }
 
         //jump
-        if(Input.GetButton("Jump") && isGrounded)
+        if(Input.GetButton("Jump"))
+        {
+            Jump();
+        }   
+    }
+
+    public void Jump()
+    {
+        if(isGrounded)
         {
             Vector2 jump  =new Vector2(rb.velocity.x , jumpForce);
             rb.velocity = jump;
             anim.Play("Base Layer.Jump");
-        }   
+        }
     }
 
     void FixedUpdate()

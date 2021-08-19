@@ -11,7 +11,7 @@ public class LevelManager : MonoBehaviour
 
     public List<Quis> soal = new List<Quis>();
 
-    public GameObject panelQuis , panelResult , panelHp , panelGameOver;
+    public GameObject panelQuis , panelResult , panelHp , panelGameOver , Joystick;
 
     //panel kuis
     public TMP_Text coinText , pertanyaan , opsiA , opsiB , opsiC , opsiD;
@@ -36,6 +36,7 @@ public class LevelManager : MonoBehaviour
         panelQuis.SetActive(false);
         panelResult.SetActive(false);
         panelGameOver.SetActive(false);
+        Joystick.SetActive(true);
         
         currHp = GameManager.GM.data.maxHp;
         UpdateHp();
@@ -60,6 +61,7 @@ public class LevelManager : MonoBehaviour
 
     public void MunculPertanyaan()
     {
+        Joystick.SetActive(false);
         panelQuis.SetActive(true);
         //Time.timeScale = 0;
 
@@ -112,12 +114,14 @@ public class LevelManager : MonoBehaviour
         yield return new WaitForSeconds(1.5f);
         panelQuis.SetActive(false);
         panelResult.SetActive(false);
+        Joystick.SetActive(true);
     }
 
     public void GameOver()
     {
         Time.timeScale = 0f;
         panelGameOver.SetActive(true);
+        Joystick.SetActive(false);
     }
 
     public void FinishLevel()
