@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10ff856af882f3045b20aeb01e568d4a, type: 3}
+  m_Name: soal8
+  m_EditorClassIdentifier: 
+  pertanyaan: "Hasil dari 6x + 7y \u2013 8x \u2013 10y adalah \u2026"
+  opsiA: 2x - 3y
+  opsiB: -2x + 3y
+  opsiC: 2x + 3y
+  opsiD: -2x - 3y
+  jawaban: 0

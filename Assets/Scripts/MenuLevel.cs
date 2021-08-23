@@ -9,7 +9,7 @@ public class MenuLevel : MonoBehaviour
 {
     public Button[] buttons;
 
-    public TMP_Text namaPemain , coinText ;
+    public TMP_Text namaPemain , coinText;
 
     void Start()
     {
@@ -28,5 +28,10 @@ public class MenuLevel : MonoBehaviour
     public void ButtonLevel(string n)
     {
         SceneManager.LoadScene(n);
+    }
+
+    void Update()
+    {
+        coinText.text = GameManager.GM.data.coin.ToString();
     }
 }

@@ -11,11 +11,12 @@ public class LevelManager : MonoBehaviour
 
     public List<Quis> soal = new List<Quis>();
 
-    public GameObject panelQuis , panelResult , panelHp , panelGameOver , Joystick;
+    public GameObject panelQuis , panelResult , panelHp , panelGameOver , Joystick , panelVolume;
 
     //panel kuis
     public TMP_Text coinText , pertanyaan , opsiA , opsiB , opsiC , opsiD;
-    int rand , currHp;
+    int rand , currHp , bisaJawab = 0;
+    bool isOpenVolume = false;
 
     void Awake()
     {
@@ -37,6 +38,9 @@ public class LevelManager : MonoBehaviour
         panelResult.SetActive(false);
         panelGameOver.SetActive(false);
         Joystick.SetActive(true);
+        panelVolume.SetActive(false);
+        isOpenVolume = false;
+        bisaJawab = 0;
         
         currHp = GameManager.GM.data.maxHp;
         UpdateHp();
@@ -101,6 +105,7 @@ public class LevelManager : MonoBehaviour
         if(ya)
         {
             res.text = "BENAR";
+            bisaJawab++;
         }
         else
         {
@@ -126,7 +131,11 @@ public class LevelManager : MonoBehaviour
 
     public void FinishLevel()
     {
-        //
+        SceneManager.LoadScene(1);
+        if(bisaJawab == 5)
+        {
+            GameManager.GM.data.levelUnlocked++;
+        }
     }
 
     public void MenuButton(string n)
@@ -138,6 +147,19 @@ public class LevelManager : MonoBehaviour
         else if(n == "home")
         {
             SceneManager.LoadScene(1);
+        }
+        else if(n == "volume")
+        {
+            if(isOpenVolume)
+            {
+                panelVolume.SetActive(false);
+                isOpenVolume = false;
+            }
+            else
+            {
+                panelVolume.SetActive(true);
+                isOpenVolume = true;
+            }
         }
     }
 }

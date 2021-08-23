@@ -30,9 +30,18 @@ public class Player : MonoBehaviour
         float inputH = 0f;
         if(isAdroid)
         {
-            if(js.Horizontal < -0.9f || js.Horizontal > 0.9f)
+            inputH = js.Horizontal;
+            if(js.Horizontal < -0.3f)
             {
-                inputH = js.Horizontal;
+                inputH = -1f;
+            }
+            else if(js.Horizontal > 0.3f)
+            {
+                inputH = 1f;
+            }
+            else
+            {
+                inputH = 0f;
             }
         
         }
