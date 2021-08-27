@@ -6,6 +6,7 @@ TagManager:
   tags:
   - finish
   - deadzone
+  - trap
   layers:
   - Default
   - TransparentFX

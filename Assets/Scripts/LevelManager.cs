@@ -11,7 +11,7 @@ public class LevelManager : MonoBehaviour
 
     public List<Quis> soal = new List<Quis>();
 
-    public GameObject panelQuis , panelResult , panelHp , panelGameOver , Joystick , panelVolume;
+    public GameObject panelQuis , panelResult , panelHp , panelGameOver , Joystick , panelVolume , panelconfirmation;
 
     //panel kuis
     public TMP_Text coinText , pertanyaan , opsiA , opsiB , opsiC , opsiD;
@@ -37,6 +37,7 @@ public class LevelManager : MonoBehaviour
         panelQuis.SetActive(false);
         panelResult.SetActive(false);
         panelGameOver.SetActive(false);
+        panelconfirmation.SetActive(false);
         Joystick.SetActive(true);
         panelVolume.SetActive(false);
         isOpenVolume = false;
@@ -142,12 +143,25 @@ public class LevelManager : MonoBehaviour
     {
         if(n == "replay")
         {
-            SceneManager.LoadScene("level1");
+            Scene s = SceneManager.GetActiveScene();
+            SceneManager.LoadScene(s.name);
         }
         else if(n == "home")
         {
-            SceneManager.LoadScene(1);
+            panelconfirmation.SetActive(true);
+            Time.timeScale = 0f;
         }
+        else if(n == "lobby")
+        {
+            Time.timeScale = 1f;
+            SceneManager.LoadScene("lobby");
+        }
+        else if(n == "back")
+        {
+            panelconfirmation.SetActive(false);
+            Time.timeScale = 1f;
+        }
+
         else if(n == "volume")
         {
             if(isOpenVolume)
