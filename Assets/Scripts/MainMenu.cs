@@ -10,14 +10,28 @@ public class MainMenu : MonoBehaviour
     public Button[] buttons;
 
     public GameObject[] panels;
+    public TMP_InputField inputanNama;
 
     void Start()
     {
-        foreach (Button i in buttons)
+        if(GameManager.GM.data.namaPemain == "")
         {
-            i.interactable = false;
+            inputanNama.interactable = true;
+            foreach (Button i in buttons)
+            {
+                i.interactable = false;
+            }
+            SetPanelActive(0);
         }
-        SetPanelActive(0);
+        else
+        {
+            inputanNama.interactable = false;
+            foreach (Button i in buttons)
+            {
+                i.interactable = true;
+            }
+            SetPanelActive(0);
+        }
     }
 
     void SetPanelActive(int n)
@@ -50,7 +64,7 @@ public class MainMenu : MonoBehaviour
         }
         else if(n == "materi")
         {
-            //SetPanelActive(0);
+            SceneManager.LoadScene("Materi");
         }
         else if(n == "tentang")
         {

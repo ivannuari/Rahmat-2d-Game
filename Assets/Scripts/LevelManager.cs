@@ -149,12 +149,11 @@ public class LevelManager : MonoBehaviour
         else if(n == "home")
         {
             panelconfirmation.SetActive(true);
-            Time.timeScale = 0f;
         }
         else if(n == "lobby")
         {
             Time.timeScale = 1f;
-            SceneManager.LoadScene("lobby");
+            SceneManager.LoadScene("Menu lobby");
         }
         else if(n == "back")
         {
